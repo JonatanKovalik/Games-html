@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חידון טריוויה לנוער</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            direction: rtl;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .question-container {
+            margin-top: 20px;
+            font-size: 22px;
+        }
+        .options {
+            margin-top: 20px;
+        }
+        .options button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .options button:hover {
+            background-color: #45a049;
+        }
+        .score {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>חידון טריוויה לנוער</h1>
+
+<div class="question-container">
+    <div id="question"></div>
+    <div class="options">
+        <button onclick="checkAnswer(0)" id="option0"></button>
+        <button onclick="checkAnswer(1)" id="option1"></button>
+        <button onclick="checkAnswer(2)" id="option2"></button>
+        <button onclick="checkAnswer(3)" id="option3"></button>
+    </div>
+</div>
+
+<div class="score" id="score"></div>
+<div class="result" id="result"></div>
+
+<script>
+    const questions = [
+        {
+            question: "מי היה ראש הממשלה הראשון של ישראל?",
+            options: ["המשה דיין", "דוד בן-גוריון", "יצחק רבין", "בני גנץ"],
+            correctAnswer: 1
+        },
+        {
+            question: "מהו הכוכב הכי קרוב לכדור הארץ?",
+            options: ["כוכב נוגה", "כוכב הלכת מאדים", "החמה", "השמש"],
+            correctAnswer: 3
+        },
+        {
+            question: "איזה סרט זכה בפרס האוסקר לסרט הטוב ביותר ב-2021?",
+            options: ["מונטי פייתון", "נשמה", "ההההההה", "יהודים בגן עדן"],
+            correctAnswer: 1
+        },
+        {
+            question: "מהי העיר הגדולה ביותר בעולם?",
+            options: ["ניו יורק", "שנגחאי", "מוסקבה", "לונדון"],
+            correctAnswer: 1
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        const question = questions[currentQuestion];
+        document.getElementById("question").innerText = question.question;
+        document.getElementById("option0").innerText = question.options[0];
+        document.getElementById("option1").innerText = question.options[1];
+        document.getElementById("option2").innerText = question.options[2];
+        document.getElementById("option3").innerText = question.options[3];
+    }
+
+    function checkAnswer(option) {
+        const question = questions[currentQuestion];
+        if (option === question.correctAnswer) {
+            score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+
+        document.getElementById("score").innerText = `ניקוד: ${score}`;
+    }
+
+    function showResult() {
+        const resultMessage = score >= 3 ? "כל הכבוד! ניצחת!" : "תנסה שוב!";
+        document.getElementById("result").innerText = `סיימת את החידון! ${resultMessage}`;
+        document.getElementById("question").style.display = "none";
+        document.getElementsByClassName("options")[0].style.display = "none";
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
